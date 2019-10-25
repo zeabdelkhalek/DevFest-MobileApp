@@ -12,6 +12,8 @@ import LayerIcon from '../assets/icons/layers_2.svg' ;
 import ProfileIcon from '../assets/icons/profile_close_2.svg' ;
 // import SplashScreen from 'react-native-splash-screen';
 import { TabBar } from "react-native-animated-nav-tab-bar";
+import {View} from 'react-native'
+import MapView from 'react-native-maps'
 
 // Manifest of possible screens
 // const AppNavigator = createStackNavigator(
@@ -98,7 +100,12 @@ let Navigation = createAppContainer(bottomTabNavigator);
 export default class App extends Component {
 	render() {
 		return (
-			<Navigation />
+			
+						<Navigation />
+			
+			
 		);
 	}
 }
+
+
