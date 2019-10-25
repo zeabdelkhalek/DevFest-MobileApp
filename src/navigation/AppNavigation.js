@@ -13,8 +13,7 @@ import ProfileIcon from '../assets/icons/profile_close_2.svg';
 // import SplashScreen from 'react-native-splash-screen';
 import { TabBar } from "react-native-animated-nav-tab-bar";
 import { setCustomText } from 'react-native-global-props';
-
-
+import MapView from 'react-native-maps'
 
 // Manifest of possible screens
 // const AppNavigator = createStackNavigator(
@@ -110,7 +109,12 @@ setCustomText(customTextProps);
 export default class App extends Component {
 	render() {
 		return (
-			<Navigation />
+			
+						<Navigation />
+			
+			
 		);
 	}
 }
+
+
