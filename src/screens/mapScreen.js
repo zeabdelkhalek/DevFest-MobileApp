@@ -11,7 +11,7 @@ import RestaurantsComponent from "../components/RestaurantsComponent";
 import TransportComponent from "../components/TransportComponent";
 import PlusIcon from "../assets/icons/plus.svg"
 import SearchIcon from "../assets/icons/search.svg"
-import FilterIcon from "../assets/icons/filter.svg"
+import LocationIcon from "../assets/icons/location.svg"
 // import CardSilder from 'react-native-cards-slider';
 import MapView from 'react-native-maps';
 
@@ -260,9 +260,9 @@ class mapScreen extends Component {
           <SearchIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
         </TouchableOpacity>
         <View style={styles.whiteicon}>
-          <FilterIcon fill={'#111111'} style={{ width: 16, height: 16 }} />
+          <LocationIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
         </View>
-        <TouchableOpacity style={styles.fab}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Add')} style={styles.fab}>
           <PlusIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
         </TouchableOpacity>
       </View>
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 18,
     bottom: 20,
-    backgroundColor: '#FFB53E',
+    backgroundColor: '#111111',
     borderRadius: 5,
     shadowColor: '#00000029',
     shadowOffset: { width: 0, height: 3 },

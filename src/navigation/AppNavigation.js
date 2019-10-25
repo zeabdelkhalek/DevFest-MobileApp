@@ -5,6 +5,7 @@ import mainScreen from '../screens/mainScreen';
 import mapScreen from '../screens/mapScreen';
 import cardsScreen from '../screens/cardsScreen';
 import profileScreen from '../screens/profileScreen';
+import addRecScreen from '../screens/addRecScreen';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Image, Text } from "react-native";
 import MapIcon from '../assets/icons/map.svg';
@@ -95,7 +96,21 @@ const TabNavigatorConfig = {
 }
 const bottomTabNavigator = createBottomTabNavigator(RouteConfigs, TabNavigatorConfig);
 
-let Navigation = createAppContainer(bottomTabNavigator);
+const mainNavigation = createStackNavigator({
+	Main : {
+		screen : bottomTabNavigator 	
+	} ,
+	Add : {
+		screen : addRecScreen
+	}
+} , {
+	headerMode: 'none',
+	initialRouteName: 'Main'
+}
+
+)
+
+let Navigation = createAppContainer(mainNavigation);
 
 const customTextProps = {
 	style: {
