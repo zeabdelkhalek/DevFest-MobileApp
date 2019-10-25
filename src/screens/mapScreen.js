@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 
-import { View, TextInput , Text, StyleSheet , TouchableOpacity } from 'react-native';
-import CardComponent from "../components/CardComponent";
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import GardenComponent from "../components/GardenComponent";
+import ChillingComponent from "../components/ChillingComponent";
+import HotelsComponent from "../components/HotelsComponent";
+import BarComponent from "../components/BarComponent";
+import ParkingComponent from "../components/ParkingComponent";
+import GymComponent from "../components/GymComponent";
+import RestaurantsComponent from "../components/RestaurantsComponent";
+import TransportComponent from "../components/TransportComponent";
 import PlusIcon from "../assets/icons/plus.svg"
+import SearchIcon from "../assets/icons/search.svg"
+import FilterIcon from "../assets/icons/filter.svg"
 // import CardSilder from 'react-native-cards-slider';
 import MapView from 'react-native-maps';
 
@@ -10,18 +19,18 @@ class mapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search : ''
+      search: ''
     };
   }
 
   _onChange = (data) => {
-     this.setState({
-       search : data
-     })
+    this.setState({
+      search: data
+    })
   }
 
   render() {
-   const mapStyle=[
+    const mapStyle = [
       {
         "elementType": "geometry",
         "stylers": [
@@ -184,11 +193,11 @@ class mapScreen extends Component {
     return (
 
       <View style={{ height: '100%', width: '100%' }} >
-         
-				 <MapView
-          style={{height:'100%', width:'100%'}}
+
+        <MapView
+          style={{ height: '100%', width: '100%' , zIndex : 1 }}
           customMapStyle={mapStyle}
-          ref={ref => {this.map = ref;}}
+          ref={ref => { this.map = ref; }}
           initialRegion={{
             latitude: 37.600425,
             longitude: -122.385861,
@@ -196,47 +205,67 @@ class mapScreen extends Component {
             longitudeDelta: 0.0922,
           }}
         >
-         
+
         </MapView>
-        <TextInput
-        underlineColorAndroid = "transparent"
-        placeholder = "Search for a place"
-        value={this.state.search}
-        onChangeText = {text => this._onChange(text)}
-        style={{ height: 50,width:240,paddingLeft:15,paddingRight:15,
-          backgroundColor: "#ffffff",
-         
-  borderTopLeftRadius:5,borderBottomLeftRadius:5,
-          shadowColor: "#000000",
-          shadowOpacity: 0.8,
-          shadowRadius: 2,
-          shadowOffset: {
-            height: 1,
-            width: 0
-          },
-           zIndex:5,
-          position:'absolute',
-          elevation:9,
-          marginTop:50,
-          marginLeft:30
-          
+        <ScrollView style={{
+          position: 'absolute',
+          top: 100,
+          margin: 20,
+          zIndex : 1
         }}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+
+
+        >
+       
+            <GardenComponent />
+            <ChillingComponent />
+            <HotelsComponent />
+            <BarComponent />
+            <GymComponent />
+            <ParkingComponent />
+            <RestaurantsComponent />
+            <TransportComponent />
+
+        </ScrollView>
+
+        <TextInput
+          underlineColorAndroid="transparent"
+          placeholder="Search for a place"
+          value={this.state.search}
+          onChangeText={text => this._onChange(text)}
+          style={{
+            height: 50, width: 240, paddingLeft: 15, paddingRight: 15,
+            backgroundColor: "#ffffff",
+
+            borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
+            shadowColor: "#000000",
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+            shadowOffset: {
+              height: 1,
+              width: 0
+            },
+            zIndex: 5,
+            position: 'absolute',
+            elevation: 9,
+            marginTop: 50,
+            marginLeft: 30
+
+          }}
         ></TextInput>
-     
-<View style={styles.search}></View>
-    
-    
 
-
-    <View style={styles.whiteicon}></View>
-
-      
-
-
+        <TouchableOpacity style={styles.search}>
+          <SearchIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
+        </TouchableOpacity>
+        <View style={styles.whiteicon}>
+          <FilterIcon fill={'#111111'} style={{ width: 16, height: 16 }} />
+        </View>
         <TouchableOpacity style={styles.fab}>
           <PlusIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
         </TouchableOpacity>
-        </View>
+      </View>
 
     );
   }
@@ -245,54 +274,58 @@ class mapScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'row',
+    flexDirection: 'row',
     backgroundColor: '#fff',
-    alignSelf:'center',
-    position:'absolute'
+    alignSelf: 'center',
+    position: 'absolute'
   },
-  search:{
+  search: {
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: "#4F6DD8",
     shadowColor: "#000000",
     shadowOpacity: 0.8,
-    position:'absolute',
+    position: 'absolute',
     shadowRadius: 2,
     shadowOffset: {
       height: 0,
       width: 3
     },
-    elevation:6,
+    elevation: 6,
     height: 50,
     width: 50,
-    marginTop:50  ,
-    borderRadius:5,
-    marginLeft:268,
-    zIndex:100
+    marginTop: 50,
+    borderRadius: 5,
+    marginLeft: 268,
+    zIndex: 100
 
-    
 
-    
+
+
   },
-  whiteicon:{
+  whiteicon: {
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: "#ffffff",
     shadowColor: "#000000",
     shadowOpacity: 1,
-    position:'absolute',
+    position: 'absolute',
     shadowRadius: 2,
     shadowOffset: {
       height: 0,
       width: 3
     },
-    elevation:6,
+    elevation: 6,
     height: 50,
     width: 50,
-    marginTop:50  ,
-    borderRadius:5,
-    marginLeft:325,
-    
+    marginTop: 50,
+    borderRadius: 5,
+    marginLeft: 325,
+
 
   }
 
-,
+  ,
   fab: {
     width: 40,
     height: 40,

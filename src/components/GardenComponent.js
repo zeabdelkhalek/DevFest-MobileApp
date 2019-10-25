@@ -23,12 +23,15 @@ class cardComponent extends Component {
   }
   render() {
     let icon = <GardenIcon fill={this.state.card.checked ? '#fff' : '#4F6DD8'} style={{ width: 40, height: 30 }} />
-    let checkedIconComponent = <Image source={require('../assets/icons/checked.png')} style={{ right: -5 , top : -5 , position : 'absolute', width: 20, height: 20 }} />
+    let checkedIconComponent = <Image source={require('../assets/icons/checked.png')} style={{ right: -5 , top : -5 , position : 'absolute', width: 20, height: 20 , zIndex : 10 }} />
     return (
       <TouchableOpacity onPress={this._onCheck} style={{
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        overflow : 'visible',
+        marginRight : 5,
+        marginLeft : 5
       }}>
         <View style={{
           height: 70,
