@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 
 class mapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      search : ''
     };
+  }
+
+  _onChange = (data) => {
+     this.setState({
+       search : data
+     })
   }
 
   render() {
@@ -171,7 +178,7 @@ class mapScreen extends Component {
       }
     ]
     return (
-      <View>
+      <View > 
         
 				 <MapView
           style={{height:'100%', width:'100%'}}
@@ -186,9 +193,94 @@ class mapScreen extends Component {
         >
          
         </MapView>
-      </View>
+        <TextInput
+        underlineColorAndroid = "transparent"
+        placeholder = "Search for a place"
+        value={this.state.search}
+        onChangeText = {text => this._onChange(text)}
+        style={{ height: 50,width:240,paddingLeft:15,paddingRight:15,
+          backgroundColor: "#ffffff",
+         
+  borderTopLeftRadius:5,borderBottomLeftRadius:5,
+          shadowColor: "#000000",
+          shadowOpacity: 0.8,
+          shadowRadius: 2,
+          shadowOffset: {
+            height: 1,
+            width: 0
+          },
+           zIndex:5,
+          position:'absolute',
+          elevation:9,
+          marginTop:50,
+          marginLeft:30
+          
+        }}
+        ></TextInput>
+     
+<View style={styles.search}></View>
+    
+    
+
+
+    <View style={styles.whiteicon}></View>
+
+    </View>
+      
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection:'row',
+    backgroundColor: '#fff',
+    alignSelf:'center',
+    position:'absolute'
+  },
+  search:{
+    backgroundColor: "#4F6DD8",
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    position:'absolute',
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 0,
+      width: 3
+    },
+    elevation:6,
+    height: 50,
+    width: 50,
+    marginTop:50  ,
+    borderRadius:5,
+    marginLeft:268,
+    zIndex:100
+
+    
+
+    
+  },
+  whiteicon:{
+    backgroundColor: "#ffffff",
+    shadowColor: "#000000",
+    shadowOpacity: 1,
+    position:'absolute',
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 0,
+      width: 3
+    },
+    elevation:6,
+    height: 50,
+    width: 50,
+    marginTop:50  ,
+    borderRadius:5,
+    marginLeft:325,
+    
+
+  }
+
+});
 
 export default mapScreen;
