@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet , TouchableOpacity } from 'react-native';
 import CardComponent from "../components/CardComponent";
 import PlusIcon from "../assets/icons/plus.svg"
 // import CardSilder from 'react-native-cards-slider';
@@ -24,9 +24,9 @@ class mapScreen extends Component {
           <CardComponent />
           <CardComponent />
         </CardSilder>
-        <View style={styles.fab}>
+        <TouchableOpacity style={styles.fab}>
           <PlusIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }
