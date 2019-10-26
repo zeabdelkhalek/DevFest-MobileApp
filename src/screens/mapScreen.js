@@ -23,6 +23,7 @@ class mapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name:null,
       latitude: 36.753768,
             longitude: 3.05
       ,
@@ -116,7 +117,7 @@ class mapScreen extends Component {
       <View style={{
         backgroundColor: '#000'
       }}>
-        <Text style={{ color: '#fff' }}> Test </Text>
+        <Text style={{ color: '#fff' }}> {this.state.name} </Text>
 
       </View>
       <Image
@@ -422,7 +423,7 @@ class mapScreen extends Component {
         .then(response=>response.json())
         .then(resj=>{
           
-          this.setState({search:resj.candidates[0].formatted_address, longitude: resj.candidates[0].geometry.location.lng,latitude: resj.candidates[0].geometry.location.lat})
+          this.setState({search:resj.candidates[0].formatted_address, longitude: resj.candidates[0].geometry.location.lng,latitude: resj.candidates[0].geometry.location.lat,name:resj.candidates[0].name})
           
         })
         
