@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, TextInput, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import GardenComponent from "../components/GardenComponent";
 import ChillingComponent from "../components/ChillingComponent";
 import HotelsComponent from "../components/HotelsComponent";
@@ -14,15 +14,70 @@ import SearchIcon from "../assets/icons/search.svg"
 import Filter from "../assets/icons/filter.svg"
 // import CardSilder from 'react-native-cards-slider';
 import MapView from 'react-native-maps';
+import { Marker } from 'react-native-maps';
 
 class mapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ''
+      search: '',
+      hotels: [
+        {
+          latitude: 36.7187551,
+          longitude: 3.1869592,
+          title: "Hotel ibis"
+        },
+        {
+          latitude: 36.7024372,
+          longitude: 3.1766576,
+          title: "Hotel Mercure"
+        },
+        {
+          latitude: 36.7098628,
+          longitude: 3.1596368,
+          title: "Hotel Sofitel"
+        },
+      ],
+      gardens: [
+        {
+          latitude: 36.7024372,
+          longitude: 3.1766576,
+          title: "Garden 1"
+        },
+        {
+          latitude: 36.7098628,
+          longitude: 3.1596368,
+          title: "Garden 2"
+        },
+        
+      ],
+      category: null
     };
   }
-
+  onPressHotels = () => {
+    if (this.state.category === 'hotels') {
+      this.setState({
+        category: null
+      })
+    } else {
+      this.setState({
+        category: 'hotels'
+      })
+    }
+   
+  }
+  onPressGardens = () => {
+    if (this.state.category === 'gardens') {
+      this.setState({
+        category: null
+      })
+    } else {
+      this.setState({
+        category: 'gardens'
+      })
+    }
+   
+  }
   _onChange = (data) => {
     this.setState({
       search: data
@@ -190,43 +245,97 @@ class mapScreen extends Component {
         ]
       }
     ]
+
+    let hotels = this.state.hotels.map(marker => (
+      <Marker
+        coordinate={{
+          latitude: marker.latitude,
+          longitude: marker.longitude,
+        }}
+
+      >
+        <View style={{
+          backgroundColor: '#000'
+        }}>
+          <Text style={{ color: '#fff' }}> {marker.title} </Text>
+
+        </View>
+        <Image
+          source={require('../assets/images/marker.png')}
+        />
+      </Marker>
+    ));
+    let gardens = this.state.gardens.map(marker => (
+      <Marker
+        coordinate={{
+          latitude: marker.latitude,
+          longitude: marker.longitude,
+        }}
+
+      >
+        <View style={{
+          backgroundColor: '#000'
+        }}>
+          <Text style={{ color: '#fff' }}> {marker.title} </Text>
+
+        </View>
+        <Image
+          source={require('../assets/images/marker.png')}
+        />
+      </Marker>
+    ));
+    // let hotels = this.state.hotels.map(marker => {
+    //   <Marker
+    //     coordinate={{
+    //       latitude : marker.latitude,
+    //       longitude : marker.longitude,
+    //       title : marker.title
+    //     }}
+    //   >
+    //     <Image
+    //       source={require('../assets/images/marker.png')}
+    //     />
+    //   </Marker>
+    // })
+
     return (
 
       <View style={{ height: '100%', width: '100%' }} >
 
         <MapView
-          style={{ height: '100%', width: '100%' , zIndex : 1 }}
+          style={{ height: '100%', width: '100%', zIndex: 1 }}
           customMapStyle={mapStyle}
           ref={ref => { this.map = ref; }}
           initialRegion={{
-            latitude: 37.600425,
-            longitude: -122.385861,
+            latitude: 36.7147883,
+            longitude: 3.1955385,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0922,
           }}
         >
-
+          {this.state.category === 'hotels' ? hotels : null}
+          {this.state.category === 'gardens' ? gardens : null}
         </MapView>
         <ScrollView style={{
           position: 'absolute',
           top: 100,
           margin: 20,
-          zIndex : 1
+          zIndex: 1
         }}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
 
 
         >
-       
-            <GardenComponent />
-            <ChillingComponent />
-            <HotelsComponent />
-            <BarComponent />
-            <GymComponent />
-            <ParkingComponent />
-            <RestaurantsComponent />
-            <TransportComponent />
+
+          <GardenComponent onPress={this.onPressGardens} />
+          <ChillingComponent />
+          <HotelsComponent onPress={this.onPressHotels} />
+          <BarComponent />
+          <GymComponent />
+          <ParkingComponent />
+          <RestaurantsComponent />
+          <TransportComponent />
 
         </ScrollView>
 

@@ -13,6 +13,7 @@ class cardComponent extends Component {
     };
   }
   _onCheck = () => {
+    this.props.onPress()
     this.setState(prevState => {
         return {
           card : {

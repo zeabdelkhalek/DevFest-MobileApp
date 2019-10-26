@@ -22,7 +22,7 @@ class cardComponent extends Component {
     })
   }
   render() {
-    let icon = <Chilling stroke={'#4F6DD8'} fill={this.state.card.checked ? '#fff' : '#4F6DD8'} style={{ width: 40, height: 30 }} />
+    let icon = <Chilling fill={this.state.card.checked ? '#fff' : '#4F6DD8'} style={{ width: 40, height: 30 }} />
     let checkedIconComponent = <Image source={require('../assets/icons/checked.png')} style={{ right: -5 , top : -5 , position : 'absolute', width: 20, height: 20 }} />
     return (
       <TouchableOpacity onPress={this._onCheck} style={{
