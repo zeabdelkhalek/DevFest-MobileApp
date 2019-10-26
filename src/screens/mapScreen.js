@@ -236,7 +236,7 @@ class mapScreen extends Component {
           value={this.state.search}
           onChangeText={text => this._onChange(text)}
           style={{
-            height: 50, width: 240, paddingLeft: 15, paddingRight: 15,
+            height: 50, width: 270, paddingLeft: 15, paddingRight: 15,
             backgroundColor: "#ffffff",
 
             borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     width: 50,
     marginTop: 50,
     borderRadius: 5,
-    marginLeft: 268,
+    marginLeft: 300,
     zIndex: 100
 
 
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     width: 50,
     marginTop: 50,
     borderRadius: 5,
-    marginLeft: 325,
+    marginLeft: 360,
 
 
   }

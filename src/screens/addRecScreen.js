@@ -59,7 +59,7 @@ class addRecScreen extends Component {
                         value={this.state.search}
                         onChangeText={text => this._onChange(text)}
                         style={{
-                            height: 50, width: 240, paddingLeft: 15, paddingRight: 15,
+                            height: 50, width: '75%', paddingLeft: 15, paddingRight: 15,
                             backgroundColor: "#ffffff",
 
                             borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     ratesContainer: {
         marginTop: 20 , 
         flexDirection: 'row' ,
-        justifyContent : 'flex-start' ,
+        justifyContent : 'space-around' ,
         alignItems: 'center',
     },
     cardRate: {
