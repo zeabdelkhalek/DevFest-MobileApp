@@ -23,7 +23,7 @@ class mapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name:null,
+      name:'Algiers',
       latitude: 36.753768,
             longitude: 3.05
       ,
