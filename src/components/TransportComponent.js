@@ -29,8 +29,8 @@ class cardComponent extends Component {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight : 5,
-        marginLeft : 5
+        width : 80 ,
+        marginTop : 6
       }}>
         <View style={{
           height: 70,
@@ -45,6 +45,7 @@ class cardComponent extends Component {
           shadowOpacity: 6,
           shadowRadius: 1,
           // padding : 15
+          elevation : 5
         }} >
           { this.state.card.checked ? checkedIconComponent : null }
           {icon}

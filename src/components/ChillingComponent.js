@@ -29,8 +29,8 @@ class cardComponent extends Component {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight : 5,
-        marginLeft : 5
+        width : 80 ,
+        marginTop : 6
       }}>
         <View style={{
           height: 70,
@@ -40,6 +40,7 @@ class cardComponent extends Component {
           borderRadius: 5,
           backgroundColor: this.state.card.checked ? '#4F6DD8' : '#fff',
           shadowColor: '#000',
+          elevation : 5 ,
           borderColor: 'red',
           shadowOffset: { width: 0, height: 3 },
           shadowOpacity: 6,
