@@ -13,6 +13,7 @@ class cardComponent extends Component {
     };
   }
   _onCheck = () => {
+    this.props.onPress()
     this.setState(prevState => {
         return {
           card : {
@@ -30,8 +31,8 @@ class cardComponent extends Component {
         justifyContent: 'center',
         alignItems: 'center',
         overflow : 'visible',
-        marginRight : 5,
-        marginLeft : 5
+        width : 80 ,
+        marginTop : 6
       }}>
         <View style={{
           height: 70,
@@ -40,11 +41,14 @@ class cardComponent extends Component {
           alignItems: 'center',
           borderRadius: 5,
           backgroundColor: this.state.card.checked ? '#4F6DD8' : '#fff',
-          shadowColor: '#000',
-          borderColor: 'red',
-          shadowOffset: { width: 0, height: 3 },
-          shadowOpacity: 6,
-          shadowRadius: 1,
+          // shadowColor: "#000000",
+          // shadowOpacity: 0.8,
+          // shadowRadius: 2,
+          // shadowOffset: {
+          //   height: 1,
+          //   width: 0
+          // },
+          elevation : 5
           // padding : 15
         }} >
           { this.state.card.checked ? checkedIconComponent : null }

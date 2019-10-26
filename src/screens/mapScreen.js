@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, TextInput, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import GardenComponent from "../components/GardenComponent";
 import ChillingComponent from "../components/ChillingComponent";
 import HotelsComponent from "../components/HotelsComponent";
@@ -11,33 +11,85 @@ import RestaurantsComponent from "../components/RestaurantsComponent";
 import TransportComponent from "../components/TransportComponent";
 import PlusIcon from "../assets/icons/plus.svg"
 import SearchIcon from "../assets/icons/search.svg"
-import FilterIcon from "../assets/icons/filter.svg"
+import Filter from "../assets/icons/filter.svg"
 // import CardSilder from 'react-native-cards-slider';
 import MapView from 'react-native-maps';
 import RNGooglePlaces from 'react-native-google-places';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
+import { Marker } from 'react-native-maps';
+
 class mapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      latitude: 36.753768,
+            longitude: 3.05
+      ,
       search: '',
       searchText:'Search a place',
-      place:''
+      place:'',
+      hotels: [
+        {
+          latitude: 36.7187551,
+          longitude: 3.1869592,
+          title: "Hotel ibis"
+        },
+        {
+          latitude: 36.7024372,
+          longitude: 3.1766576,
+          title: "Hotel Mercure"
+        },
+        {
+          latitude: 36.7098628,
+          longitude: 3.1596368,
+          title: "Hotel Sofitel"
+        },
+      ],
+      gardens: [
+        {
+          latitude: 36.7024372,
+          longitude: 3.1766576,
+          title: "Garden 1"
+        },
+        {
+          latitude: 36.7098628,
+          longitude: 3.1596368,
+          title: "Garden 2"
+        },
+        
+      ],
+      category: null
     };
   }
-
-  openSearchModal() {
-    RNGooglePlaces.openAutocompleteModal({
-      country: 'DZ',
-      type: 'address'
-      }, ['placeID', 'location', 'name', 'address', 'types', 'openingHours', 'plusCode', 'rating', 'userRatingsTotal', 'viewport']
-    )
-    .then((place) => {
-      console.log(place);
-      this.setState({searchText: place.address});
+  onPressHotels = () => {
+    if (this.state.category === 'hotels') {
+      this.setState({
+        category: null
+      })
+    } else {
+      this.setState({
+        category: 'hotels'
+      })
+    }
+   
+  }
+  onPressGardens = () => {
+    if (this.state.category === 'gardens') {
+      this.setState({
+        category: null
+      })
+    } else {
+      this.setState({
+        category: 'gardens'
+      })
+    }
+   
+  }
+  _onChange = (data) => {
+    this.setState({
+      search: data
     })
-    .catch(error => console.log(error.message));
 
     // RNGooglePlaces.openAutocompleteModal(
     //   {country: 'DZ', type: 'address'}
@@ -51,11 +103,27 @@ class mapScreen extends Component {
     // .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
 
-  _onChange = (data) => {
- this.setState({search:data})
-  }
+
 
   render() {
+    let myPosition = this.state.latitude ? ( <Marker
+      coordinate={{
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+      }}
+
+    >
+      <View style={{
+        backgroundColor: '#000'
+      }}>
+        <Text style={{ color: '#fff' }}> Test </Text>
+
+      </View>
+      <Image
+        source={require('../assets/images/marker.png')}
+      />
+    </Marker>) : null ;
+
     const mapStyle = [
       {
         "elementType": "geometry",
@@ -216,45 +284,109 @@ class mapScreen extends Component {
         ]
       }
     ]
-    
+
+    let hotels = this.state.hotels.map(marker => (
+      <Marker
+        coordinate={{
+          latitude: marker.latitude,
+          longitude: marker.longitude,
+        }}
+
+      >
+        <View style={{
+          backgroundColor: '#000'
+        }}>
+          <Text style={{ color: '#fff' }}> {marker.title} </Text>
+
+        </View>
+        <Image
+          source={require('../assets/images/marker.png')}
+        />
+      </Marker>
+    ));
+    let gardens = this.state.gardens.map(marker => (
+      <Marker
+        coordinate={{
+          latitude: marker.latitude,
+          longitude: marker.longitude,
+        }}
+
+      >
+        <View style={{
+          backgroundColor: '#000'
+        }}>
+          <Text style={{ color: '#fff' }}> {marker.title} </Text>
+
+        </View>
+        <Image
+          source={require('../assets/images/marker.png')}
+        />
+      </Marker>
+    ));
+    // let hotels = this.state.hotels.map(marker => {
+    //   <Marker
+    //     coordinate={{
+    //       latitude : marker.latitude,
+    //       longitude : marker.longitude,
+    //       title : marker.title
+    //     }}
+    //   >
+    //     <Image
+    //       source={require('../assets/images/marker.png')}
+    //     />
+    //   </Marker>
+    // })
+
     return (
 
       <View style={{ height: '100%', width: '100%' }} >
          
 
         <MapView
-          style={{ height: '100%', width: '100%' , zIndex : 1 }}
+          style={{ height: '100%', width: '100%', zIndex: 1 }}
           customMapStyle={mapStyle}
           ref={ref => { this.map = ref; }}
           initialRegion={{
-            latitude: 37.600425,
-            longitude: -122.385861,
+            latitude: 36.753768,
+            longitude: 3.05,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0922,
           }}
-        >
 
+          region={{
+            latitude:this.state.latitude,
+            longitude:this.state.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0922,
+          }}
+
+          
+          
+        >
+          {this.state.category === 'hotels' ? hotels : null}
+          {this.state.category === 'gardens' ? gardens : null}
+          {myPosition}
         </MapView>
         <ScrollView style={{
           position: 'absolute',
           top: 100,
           margin: 20,
-          zIndex : 1
+          zIndex: 1
         }}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
 
 
         >
-       
-            <GardenComponent />
-            <ChillingComponent />
-            <HotelsComponent />
-            <BarComponent />
-            <GymComponent />
-            <ParkingComponent />
-            <RestaurantsComponent />
-            <TransportComponent />
+
+          <GardenComponent onPress={this.onPressGardens} />
+          <ChillingComponent />
+          <HotelsComponent onPress={this.onPressHotels} />
+          <BarComponent />
+          <GymComponent />
+          <ParkingComponent />
+          <RestaurantsComponent />
+          <TransportComponent />
 
         </ScrollView>
 
@@ -281,15 +413,17 @@ class mapScreen extends Component {
           placeholder="Search for a place"
           value={this.state.search}
           onChangeText={text => this._onChange(text)}
+
          
-        ></TextInput> 
+        ></TextInput>
 
         <TouchableOpacity style={styles.search} onPress={() => {
-         fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+this.state.search+'&inputtype=textquery&fields=photos,formatted_address,name&key=AIzaSyBWNLHVEqpKvx-NKjGavZnSHhumM4z8AJM')
+         fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+this.state.search+'&inputtype=textquery&fields=photos,formatted_address,name,geometry&key=AIzaSyBWNLHVEqpKvx-NKjGavZnSHhumM4z8AJM')
         .then(response=>response.json())
         .then(resj=>{
-          console.warn(resj.candidates[0]);
-          this.setState({search:resj.candidates[0].formatted_address})
+          
+          this.setState({search:resj.candidates[0].formatted_address, longitude: resj.candidates[0].geometry.location.lng,latitude: resj.candidates[0].geometry.location.lat})
+          
         })
         
         ;
@@ -297,9 +431,9 @@ class mapScreen extends Component {
           <SearchIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
         </TouchableOpacity>
         <View style={styles.whiteicon}>
-          <FilterIcon fill={'#111111'} style={{ width: 16, height: 16 }} />
+          <Filter fill={'#111111'} style={{ width: 16, height: 16 }} />
         </View>
-        <TouchableOpacity style={styles.fab}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Add')} style={styles.fab}>
           <PlusIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
         </TouchableOpacity>
       </View>
@@ -333,7 +467,7 @@ const styles = StyleSheet.create({
     width: 50,
     marginTop: 50,
     borderRadius: 5,
-    marginLeft: 268,
+    marginLeft: 300,
     zIndex: 100
 
 
@@ -357,7 +491,7 @@ const styles = StyleSheet.create({
     width: 50,
     marginTop: 50,
     borderRadius: 5,
-    marginLeft: 325,
+    marginLeft: 360,
 
 
   }
@@ -371,7 +505,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 18,
     bottom: 20,
-    backgroundColor: '#FFB53E',
+    backgroundColor: '#111111',
     borderRadius: 5,
     shadowColor: '#00000029',
     shadowOffset: { width: 0, height: 3 },
