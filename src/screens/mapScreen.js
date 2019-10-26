@@ -14,19 +14,45 @@ import SearchIcon from "../assets/icons/search.svg"
 import FilterIcon from "../assets/icons/filter.svg"
 // import CardSilder from 'react-native-cards-slider';
 import MapView from 'react-native-maps';
+import RNGooglePlaces from 'react-native-google-places';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 class mapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ''
+      search: '',
+      searchText:'Search a place',
+      place:''
     };
   }
 
-  _onChange = (data) => {
-    this.setState({
-      search: data
+  openSearchModal() {
+    RNGooglePlaces.openAutocompleteModal({
+      country: 'DZ',
+      type: 'address'
+      }, ['placeID', 'location', 'name', 'address', 'types', 'openingHours', 'plusCode', 'rating', 'userRatingsTotal', 'viewport']
+    )
+    .then((place) => {
+      console.log(place);
+      this.setState({searchText: place.address});
     })
+    .catch(error => console.log(error.message));
+
+    // RNGooglePlaces.openAutocompleteModal(
+    //   {country: 'DZ', type: 'address'}
+    // )
+    // .then((place) => {
+    //     console.log(place);
+    //     // place represents user's selection from the
+    //     // suggestions and it is a simplified Google Place object.
+    //     this.setState({searchText: place.address});
+    // })
+    // .catch(error => console.log(error.message));  // error is a Javascript Error object
+  }
+
+  _onChange = (data) => {
+ this.setState({search:data})
   }
 
   render() {
@@ -190,9 +216,11 @@ class mapScreen extends Component {
         ]
       }
     ]
+    
     return (
 
       <View style={{ height: '100%', width: '100%' }} >
+         
 
         <MapView
           style={{ height: '100%', width: '100%' , zIndex : 1 }}
@@ -230,33 +258,42 @@ class mapScreen extends Component {
 
         </ScrollView>
 
-        <TextInput
+        
+         <TextInput style={{
+          height: 50, width: 240, paddingLeft: 15, paddingRight: 15,
+          backgroundColor: "#ffffff",
+
+          borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
+          shadowColor: "#000000",
+          shadowOpacity: 0.8,
+          shadowRadius: 2,
+          shadowOffset: {
+            height: 1,
+            width: 0
+          },
+          zIndex: 5,
+          position: 'absolute',
+          elevation: 9,
+          marginTop: 50,
+          marginLeft: 30,
+          alignItems:'center',}}
           underlineColorAndroid="transparent"
           placeholder="Search for a place"
           value={this.state.search}
           onChangeText={text => this._onChange(text)}
-          style={{
-            height: 50, width: 240, paddingLeft: 15, paddingRight: 15,
-            backgroundColor: "#ffffff",
+         
+        ></TextInput> 
 
-            borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
-            shadowColor: "#000000",
-            shadowOpacity: 0.8,
-            shadowRadius: 2,
-            shadowOffset: {
-              height: 1,
-              width: 0
-            },
-            zIndex: 5,
-            position: 'absolute',
-            elevation: 9,
-            marginTop: 50,
-            marginLeft: 30
-
-          }}
-        ></TextInput>
-
-        <TouchableOpacity style={styles.search}>
+        <TouchableOpacity style={styles.search} onPress={() => {
+         fetch('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+this.state.search+'&inputtype=textquery&fields=photos,formatted_address,name&key=AIzaSyBWNLHVEqpKvx-NKjGavZnSHhumM4z8AJM')
+        .then(response=>response.json())
+        .then(resj=>{
+          console.warn(resj.candidates[0]);
+          this.setState({search:resj.candidates[0].formatted_address})
+        })
+        
+        ;
+        }}>
           <SearchIcon fill={'#fff'} style={{ width: 16, height: 16 }} />
         </TouchableOpacity>
         <View style={styles.whiteicon}>
