@@ -36,6 +36,22 @@ class addRecScreen extends Component {
             }
         })
     }
+    _onChange = (data) => {
+        this.setState({
+          search: data
+        })
+    
+        // RNGooglePlaces.openAutocompleteModal(
+        //   {country: 'DZ', type: 'address'}
+        // )
+        // .then((place) => {
+        //     console.log(place);
+        //     // place represents user's selection from the
+        //     // suggestions and it is a simplified Google Place object.
+        //     this.setState({searchText: place.address});
+        // })
+        // .catch(error => console.log(error.message));  // error is a Javascript Error object
+      }
 
     render() {
         return (
@@ -104,9 +120,9 @@ class addRecScreen extends Component {
 
                 >
 
-                    <GardenComponent />
+                    <GardenComponent onPress={()=>console.log('salam')}/>
                     <ChillingComponent />
-                    <HotelsComponent />
+                    <HotelsComponent onPress={()=>console.log('salam')}/>
                     <BarComponent />
                     <GymComponent />
                     <ParkingComponent />
@@ -176,7 +192,12 @@ class addRecScreen extends Component {
 
                     marginTop: 20
                 }}  >
-                    <TouchableOpacity style={styles.blockButton}>
+                    <TouchableOpacity style={styles.blockButton} onPress={
+                        () =>  {
+                            this.setState({search:''})
+                            alert('Your review has been successfully added')
+                        }
+                    }>
                         <Text style={styles.textButton} >Add the review</Text>
 
                     </TouchableOpacity>

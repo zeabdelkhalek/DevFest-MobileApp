@@ -109,9 +109,9 @@ class cardsScreen extends Component {
 
         >
 
-          <GardenComponent />
+          <GardenComponent onPress={()=>console.log('salam')}/>
           <ChillingComponent />
-          <HotelsComponent />
+          <HotelsComponent onPress={()=>console.log('salam')}/>
           <BarComponent />
           <GymComponent />
           <ParkingComponent />

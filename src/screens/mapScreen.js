@@ -376,18 +376,18 @@ class mapScreen extends Component {
         }}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-
+          
 
         >
-
-          <GardenComponent onPress={this.onPressGardens} />
-          <ChillingComponent />
-          <HotelsComponent onPress={this.onPressHotels} />
-          <BarComponent />
-          <GymComponent />
-          <ParkingComponent />
-          <RestaurantsComponent />
-          <TransportComponent />
+      
+          <GardenComponent key={'1'} onPress={this.onPressGardens} />
+          <ChillingComponent key={'2'}/>
+          <HotelsComponent key={'3'} onPress={this.onPressHotels} />
+          <BarComponent key={'4'}/>
+          <GymComponent key={'5'}/>
+          <ParkingComponent key={'6'}/>
+          <RestaurantsComponent key={'7'}/>
+          <TransportComponent key={'8'}/>
 
         </ScrollView>
 
